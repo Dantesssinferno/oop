@@ -2,22 +2,37 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.remote.webdriver import WebDriver
 
 # ===================================== BROWSER SETUP =====================================
 def create_driver() -> webdriver.Chrome:
+    # инициилизируем chrome_options
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_experimental_option("detach", True)
-
+    # оставить окно открытым после завершения скрипта (удобно при обучении)
+    # chrome_options.add_argument('--headless') # запуск теста в безголовом режиме, не запуская окно браузера
+    # 🔑 запуск в гостевом режиме
+    chrome_options.add_argument('--guest')
+    # 🔑 отключаем переводчик и выставляем язык
     prefs = {
+        # отключить переводчик
+        "translate": {"enable": False},
+        # отключить менеджер паролей и все всплывающие окна
+        "credentials_enable_service": False,
+        "profile.password_manager_enabled": False,
+        # отключить проверку безопасности паролей и всплывашки "Change password"
+        "profile.password_manager_leak_detection": False,
+        # язык
         "intl.accept_languages": "en,en_US"
     }
     chrome_options.add_experimental_option("prefs", prefs)
     chrome_options.add_argument("--lang=en")
-
-    driver = webdriver.Chrome(options=chrome_options)
+    g = Service()
+    driver = webdriver.Chrome(options=chrome_options, service=g)
     driver.maximize_window()
+    time.sleep(3)
     return driver
 # ===================================== PAGE OBJECT =======================================
 class LoginPage: # Класс как Page Object:
