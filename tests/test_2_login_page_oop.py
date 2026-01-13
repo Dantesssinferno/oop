@@ -1,4 +1,5 @@
 import time
+from typing import Tuple
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
@@ -61,17 +62,17 @@ class BasePage:
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)
 
-    def click(self, locator: tuple[By, str]) -> None:
+    def click(self, locator: Tuple[str, str]) -> None:
         self.wait.until(EC.element_to_be_clickable(locator))
         self.driver.find_element(*locator).click()
 
-    def type_text(self, locator: tuple[By, str], text: str) -> None:
+    def type_text(self, locator: Tuple[str, str], text: str) -> None:
         self.wait.until(EC.visibility_of_element_located(locator))
         el = self.driver.find_element(*locator)
         el.clear()
         el.send_keys(text)
 
-    def get_text(self, locator: tuple[By, str]) -> str:
+    def get_text(self, locator: Tuple[str, str]) -> str:
         self.wait.until(EC.visibility_of_element_located(locator))
         el = self.driver.find_element(*locator)
         return el.text
@@ -327,6 +328,7 @@ def run_test() -> None:
         print("Item total:", total_sum_text)
 
     finally:
+        pass
         # Если хочешь оставлять окно открытым — можно закомментировать
         # driver.quit()
 
