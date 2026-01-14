@@ -1,13 +1,15 @@
 import pytest
 import tempfile
 from selenium import webdriver
-from selenium.webdriver.chromium.options import ChromiumOptions
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 
 
 @pytest.fixture
 def driver():
     """Фикстура для инициализации и закрытия браузера."""
-    chrome_options = ChromiumOptions()
+    chrome_options = Options()
+    chrome_service = Service()
     chrome_options.add_experimental_option('detach', True)
     chrome_options.add_argument('--lang=en')
     user_data_dir = tempfile.mkdtemp(prefix="selenium-chrome-profile-")
@@ -32,7 +34,7 @@ def driver():
     chrome_options.add_argument("--disable-save-password-bubble")
     chrome_options.add_argument("--disable-extensions")
 
-    driver = webdriver.Chrome(options=chrome_options)
+    driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
     driver.set_window_size(1440, 860)
 
     yield driver
