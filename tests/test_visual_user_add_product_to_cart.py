@@ -2,7 +2,7 @@ import time
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from login_page_module import LoginPage
+from login_page import LoginPage
 from selenium.common.exceptions import NoSuchElementException
 
 class TestLogin_2:
