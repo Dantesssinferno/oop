@@ -4,6 +4,7 @@
 from pages.login_page import LoginPage
 
 
+
 def test_standard_user_add_product_to_cart(driver):
     """
     Тестовый сценарий (семантика):
