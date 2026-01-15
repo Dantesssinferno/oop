@@ -1,12 +1,13 @@
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from config.settings import DEFAULT_TIMEOUT
 
 
 class BasePage:
-    def __init__(self, driver: WebDriver, wait: WebDriverWait):
+    def __init__(self, driver: WebDriver, timeout: int = DEFAULT_TIMEOUT):
         self.driver = driver
-        self.wait = wait
+        self.wait = WebDriverWait(driver, timeout)
 
     def open(self, url: str) -> None:
         self.driver.get(url)
@@ -14,8 +15,12 @@ class BasePage:
     def find_visible(self, locator):
         return self.wait.until(EC.visibility_of_element_located(locator))
 
+    def find_present(self, locator):
+        return self.wait.until(EC.presence_of_element_located(locator))
+
     def click(self, locator) -> None:
-        self.wait.until(EC.element_to_be_clickable(locator)).click()
+        self.wait.until(EC.element_to_be_clickable(locator))
+        self.driver.find_element(*locator).click()
 
     def type(self, locator, text: str, clear: bool = True) -> None:
         el = self.find_visible(locator)
@@ -25,3 +30,11 @@ class BasePage:
 
     def text(self, locator) -> str:
         return self.find_visible(locator).text
+
+    def is_visible(self, locator) -> bool:
+        try:
+            self.find_visible(locator)
+            return True
+        except Exception:
+            return False
+        
