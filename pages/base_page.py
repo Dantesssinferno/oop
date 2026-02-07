@@ -1,4 +1,5 @@
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from config.settings import DEFAULT_TIMEOUT
@@ -12,10 +13,10 @@ class BasePage:
     def open(self, url: str) -> None:
         self.driver.get(url)
 
-    def find_visible(self, locator):
+    def find_visible(self, locator) -> WebElement:
         return self.wait.until(EC.visibility_of_element_located(locator))
 
-    def find_present(self, locator):
+    def find_present(self, locator) -> WebElement:
         return self.wait.until(EC.presence_of_element_located(locator))
 
     def click(self, locator) -> None:

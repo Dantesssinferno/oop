@@ -7,7 +7,7 @@ from pages.login_page import LoginPage
 
 def test_standard_user_add_product_to_cart(driver):
     """
-    Тестовый сценарий (семантика):
+    Тестовый сценарий:
     1. Открыть страницу логина
     2. Залогиниться стандартным пользователем
     3. Получить название и цену товара из каталога
@@ -24,7 +24,6 @@ def test_standard_user_add_product_to_cart(driver):
 
     # Создаём Page Object страницы логина.
     # driver — это WebDriver, созданный в фикстуре.
-    #
     # .open() загружает BASE_URL
     # и возвращает self (LoginPage),
     # чтобы можно было продолжать цепочку вызовов.
@@ -34,7 +33,6 @@ def test_standard_user_add_product_to_cart(driver):
 
     # login.login(...) выполняет ввод логина и пароля
     # и кликает кнопку Login.
-    #
     # Семантически важно:
     # - после логина пользователь оказывается на странице каталога
     # - поэтому метод возвращает InventoryPage
