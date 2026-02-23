@@ -38,13 +38,15 @@ class InventoryPage(BasePage):
     # Локатор кнопки "OK" на попапе (может быть RU/EN разный)
     PASSWORD_POPUP_OK = (By.XPATH, "//button[.='ОК' or .='Ok' or .='OK']")
 
+
+
     def close_password_leak_popup_if_present(self) -> "InventoryPage":
         """
 
         Закрывает попап, если он появился.
         Не падает, если попапа нет.
         """
-        clicked = self.click_if_present(self.PASSWORD_POPUP_OK, timeout = 2)
+        clicked = self.click_if_present(self.PASSWORD_POPUP_OK, timeout=2)
         if clicked:
             print("Закрыл попап смены пароля")
         return self
@@ -109,7 +111,7 @@ class InventoryPage(BasePage):
 
         # Кликаем по иконке корзины
         self.click(self.CART_LINK)
-
+        print(self.driver.current_url)
         # Создаём и возвращаем Page Object корзины
         # Передаём driver, потому что браузер тот же самый
         return CartPage(self.driver)

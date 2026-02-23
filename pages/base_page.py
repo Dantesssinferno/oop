@@ -1,3 +1,5 @@
+from xml.sax.xmlreader import Locator
+
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
@@ -33,6 +35,15 @@ class BasePage:
                 if attempt == retries -1:
                     # если все попытки провалились
                     raise last_exception
+
+    def click_if_present(self, locator, timeout: int = 3) -> bool:
+        try:
+            wait = WebDriverWait(self.driver, timeout)
+            element = wait.until(EC.element_to_be_clickable(locator))
+            element.click()
+            return True
+        except TimeoutException:
+            return False
 
     def type(self, locator, text: str, clear: bool = True) -> None:
         el = self.find_visible(locator)
