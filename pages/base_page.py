@@ -3,7 +3,8 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from config.settings import DEFAULT_TIMEOUT
-
+from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import TimeoutException
 
 class BasePage:
     def __init__(self, driver: WebDriver, timeout: int = DEFAULT_TIMEOUT):
@@ -19,9 +20,19 @@ class BasePage:
     def find_present(self, locator) -> WebElement:
         return self.wait.until(EC.presence_of_element_located(locator))
 
-    def click(self, locator) -> None:
-        element = self.wait.until(EC.element_to_be_clickable(locator))
-        element.click()
+    def click(self, locator, retries: int = 3):
+        last_exception = None
+
+        for attempt in range(retries):
+            try:
+                element = self.wait.until(EC.element_to_be_clickable(locator))
+                element.click()
+                return
+            except StaleElementReferenceException as e:
+                last_exception = e
+                if attempt == retries -1:
+                    # если все попытки провалились
+                    raise last_exception
 
     def type(self, locator, text: str, clear: bool = True) -> None:
         el = self.find_visible(locator)
@@ -36,6 +47,6 @@ class BasePage:
         try:
             self.find_visible(locator)
             return True
-        except Exception:
+        except TimeoutException:
             return False
         

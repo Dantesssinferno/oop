@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.options import Options
 from config import HEADLESS, KEEP_BROWSER
 
 
-@pytest.fixture
+@pytest.fixture(scope = "function")
 def driver():
     options = Options()
 
@@ -15,7 +15,8 @@ def driver():
     driver = webdriver.Chrome(options=options)
     driver.set_window_size(1440, 860)
 
-    yield driver
-
-    if not KEEP_BROWSER:
-        driver.quit()
+    try:
+        yield driver
+    finally:
+        if not KEEP_BROWSER:
+            driver.quit()
