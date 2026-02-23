@@ -20,8 +20,8 @@ class BasePage:
         return self.wait.until(EC.presence_of_element_located(locator))
 
     def click(self, locator) -> None:
-        self.wait.until(EC.element_to_be_clickable(locator))
-        self.driver.find_element(*locator).click()
+        element = self.wait.until(EC.element_to_be_clickable(locator))
+        element.click()
 
     def type(self, locator, text: str, clear: bool = True) -> None:
         el = self.find_visible(locator)
