@@ -54,16 +54,16 @@ class LoginPage(BasePage):
         # 1. ждёт, пока элемент станет видимым
         # 2. очищает поле
         # 3. вводит текст
-        self.type(self.USERNAME_INPUT, username)
+        self.type(LoginLocators.USERNAME_INPUT, username)
 
         # Вводим пароль — логика та же самая
-        self.type(self.PASSWORD_INPUT, password)
+        self.type(LoginLocators.PASSWORD_INPUT, password)
 
         # Кликаем по кнопке логина:
         # self.click — метод BasePage:
         # 1. ждёт, пока кнопка станет кликабельной
         # 2. кликает по ней
-        self.click(self.LOGIN_BUTTON)
+        self.click(LoginLocators.LOGIN_BUTTON)
 
         # Возвращаем новый Page Object следующей страницы
         # Мы передаём driver, потому что браузер тот же самый

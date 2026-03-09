@@ -2,7 +2,7 @@
 # (XPATH, ID, CSS_SELECTOR и т.д.)
 from selenium.webdriver.common.by import By
 from wait.decorator import timeout
-
+from locators.inventory_locators import InventoryLocators
 # BasePage — базовый Page Object:
 # содержит driver, wait и общие методы работы с элементами
 from pages.base_page import BasePage
@@ -19,26 +19,6 @@ from pages.cart_page import CartPage
 # - методы click(), text(), type() и т.д.
 class InventoryPage(BasePage):
 
-    # ===== ЛОКАТОРЫ СТРАНИЦЫ КАТАЛОГА =====
-    # Каждый локатор — это кортеж (By, value)
-    # Они ОПИСЫВАЮТ элементы, но не ищут их напрямую
-
-    # Название первого товара в каталоге
-    FIRST_PRODUCT_TITLE = (By.XPATH, "//a[@id='item_4_title_link']")
-
-    # Цена первого товара
-    FIRST_PRODUCT_PRICE = (By.XPATH, "//div[@class='inventory_item_price'][1]")
-
-    # Кнопка "Add to cart" для первого товара
-    ADD_PRODUCT_TO_CART_BUTTON = (By.XPATH, "//button[@id='add-to-cart-sauce-labs-backpack']")
-
-    # Ссылка (иконка) корзины в шапке страницы
-    CART_ICON = (By.XPATH, "//a[@class='shopping_cart_link']")
-
-    # Локатор кнопки "OK" на попапе (может быть RU/EN разный)
-    PASSWORD_POPUP_OK = (By.XPATH, "//button[.='ОК' or .='Ok' or .='OK']")
-
-
 
     def close_password_leak_popup_if_present(self) -> "InventoryPage":
         """
@@ -46,7 +26,7 @@ class InventoryPage(BasePage):
         Закрывает попап, если он появился.
         Не падает, если попапа нет.
         """
-        clicked = self.click_if_present(self.PASSWORD_POPUP_OK, timeout=2)
+        clicked = self.click_if_present(InventoryLocators.PASSWORD_POPUP_OK, timeout=2)
         if clicked:
             print("Закрыл попап смены пароля")
         return self
@@ -68,10 +48,10 @@ class InventoryPage(BasePage):
         # self.text — метод BasePage:
         # 1. ждёт, пока элемент станет видимым
         # 2. возвращает его текстовое содержимое
-        title = self.text(self.FIRST_PRODUCT_TITLE)
+        title = self.text(InventoryLocators.FIRST_PRODUCT_TITLE)
 
         # Читаем цену товара аналогичным образом
-        price = self.text(self.FIRST_PRODUCT_PRICE)
+        price = self.text(InventoryLocators.FIRST_PRODUCT_PRICE)
 
         # Возвращаем данные как единое логическое целое
         return title, price
@@ -93,7 +73,7 @@ class InventoryPage(BasePage):
         # self.click — метод BasePage:
         # 1. ждёт, пока кнопка станет кликабельной
         # 2. кликает по ней
-        self.click(self.ADD_PRODUCT_TO_CART_BUTTON)
+        self.click(InventoryLocators.ADD_PRODUCT_TO_CART_BUTTON)
 
         # Возвращаем текущую страницу,
         # потому что пользователь всё ещё находится в каталоге
@@ -110,7 +90,7 @@ class InventoryPage(BasePage):
         """
 
         # Кликаем по иконке корзины
-        self.click(self.CART_ICON)
+        self.click(InventoryLocators.CART_ICON)
         print(self.driver.current_url)
         # Создаём и возвращаем Page Object корзины
         # Передаём driver, потому что браузер тот же самый
