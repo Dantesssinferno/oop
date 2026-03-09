@@ -22,7 +22,7 @@ class LoginPage(BasePage):
     # Он НЕ ищет элемент, а только ОПИСЫВАЕТ, как его найти
     USERNAME_INPUT = (By.XPATH, "//input[@name='user-name']")
     PASSWORD_INPUT = (By.XPATH, "//input[@id='password']")
-    LOGIN_BTN_BUTTON = (By.XPATH, "//input[@id='login-button']")
+    LOGIN_BUTTON = (By.XPATH, "//input[@id='login-button']")
 
     # ===== МЕТОД ОТКРЫТИЯ СТРАНИЦЫ =====
     def open(self) -> "LoginPage":
@@ -59,16 +59,16 @@ class LoginPage(BasePage):
         # 1. ждёт, пока элемент станет видимым
         # 2. очищает поле
         # 3. вводит текст
-        self.type(self.USERNAME, username)
+        self.type(self.USERNAME_INPUT, username)
 
         # Вводим пароль — логика та же самая
-        self.type(self.PASSWORD, password)
+        self.type(self.PASSWORD_INPUT, password)
 
         # Кликаем по кнопке логина:
         # self.click — метод BasePage:
         # 1. ждёт, пока кнопка станет кликабельной
         # 2. кликает по ней
-        self.click(self.LOGIN_BTN)
+        self.click(self.LOGIN_BUTTON)
 
         # Возвращаем новый Page Object следующей страницы
         # Мы передаём driver, потому что браузер тот же самый
