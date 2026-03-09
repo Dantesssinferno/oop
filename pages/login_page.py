@@ -20,9 +20,9 @@ class LoginPage(BasePage):
     # ===== ЛОКАТОРЫ СТРАНИЦЫ =====
     # Каждый локатор — это кортеж (By, value)
     # Он НЕ ищет элемент, а только ОПИСЫВАЕТ, как его найти
-    USERNAME = (By.XPATH, "//input[@name='user-name']")
-    PASSWORD = (By.XPATH, "//input[@id='password']")
-    LOGIN_BTN = (By.XPATH, "//input[@id='login-button']")
+    USERNAME_INPUT = (By.XPATH, "//input[@name='user-name']")
+    PASSWORD_INPUT = (By.XPATH, "//input[@id='password']")
+    LOGIN_BTN_BUTTON = (By.XPATH, "//input[@id='login-button']")
 
     # ===== МЕТОД ОТКРЫТИЯ СТРАНИЦЫ =====
     def open(self) -> "LoginPage":

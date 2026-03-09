@@ -1,8 +1,23 @@
+# virtual env
 .venv/
 venv/
+
+# IDE
 .idea/
+.vscode/
+
+# python
 __pycache__/
 *.pyc
-.env
+
+# pytest
 .pytest_cache/
+
+# env
+.env
+
+# downloads
 files_download/
+
+# allure
+allure-results/
