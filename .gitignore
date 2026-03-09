@@ -1,7 +1,8 @@
+.venv/
 venv/
 .idea/
-_pycach/
+__pycache__/
 *.pyc
 .env
-pytest_cache/
+.pytest_cache/
 files_download/
