@@ -18,10 +18,10 @@ class CartPage(BasePage):
     # как Selenium должен их найти
 
     # Название первого товара в корзине
-    CART_PRODUCT_1_TITLE = (By.XPATH, "//div[@class='inventory_item_name'][1]")
+    FIRST_CART_PRODUCT_TITLE = (By.XPATH, "//div[@class='inventory_item_name'][1]")
 
     # Цена первого товара в корзине
-    CART_PRODUCT_1_PRICE = (By.XPATH, "//div[@class='inventory_item_price'][1]")
+    FIRST_CART_PRODUCT_PRICE = (By.XPATH, "//div[@class='inventory_item_price'][1]")
 
     # ===== МЕТОД ЧТЕНИЯ ДАННЫХ ИЗ КОРЗИНЫ =====
     def get_cart_product_1_info(self) -> tuple[str, str]:
@@ -40,10 +40,10 @@ class CartPage(BasePage):
         # self.text — метод BasePage:
         # 1. ждёт, пока элемент станет видимым
         # 2. возвращает текст элемента
-        title = self.text(self.CART_PRODUCT_1_TITLE)
+        title = self.text(self.FIRST_CART_PRODUCT_TITLE)
 
         # Аналогично получаем цену товара
-        price = self.text(self.CART_PRODUCT_1_PRICE)
+        price = self.text(self.FIRST_CART_PRODUCT_PRICE)
 
         # Возвращаем оба значения вместе,
         # потому что логически они относятся к одному объекту — товару

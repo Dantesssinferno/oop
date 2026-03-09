@@ -24,16 +24,16 @@ class InventoryPage(BasePage):
     # Они ОПИСЫВАЮТ элементы, но не ищут их напрямую
 
     # Название первого товара в каталоге
-    PRODUCT_1_TITLE = (By.XPATH, "//a[@id='item_4_title_link']")
+    FIRST_PRODUCT_TITLE = (By.XPATH, "//a[@id='item_4_title_link']")
 
     # Цена первого товара
-    PRODUCT_1_PRICE = (By.XPATH, "//div[@class='inventory_item_price'][1]")
+    FIRST_PRODUCT_PRICE = (By.XPATH, "//div[@class='inventory_item_price'][1]")
 
     # Кнопка "Add to cart" для первого товара
-    ADD_PRODUCT_1 = (By.XPATH, "//button[@id='add-to-cart-sauce-labs-backpack']")
+    ADD_PRODUCT_TO_CART_BUTTON = (By.XPATH, "//button[@id='add-to-cart-sauce-labs-backpack']")
 
     # Ссылка (иконка) корзины в шапке страницы
-    CART_LINK = (By.XPATH, "//a[@class='shopping_cart_link']")
+    CART_ICON = (By.XPATH, "//a[@class='shopping_cart_link']")
 
     # Локатор кнопки "OK" на попапе (может быть RU/EN разный)
     PASSWORD_POPUP_OK = (By.XPATH, "//button[.='ОК' or .='Ok' or .='OK']")
@@ -68,10 +68,10 @@ class InventoryPage(BasePage):
         # self.text — метод BasePage:
         # 1. ждёт, пока элемент станет видимым
         # 2. возвращает его текстовое содержимое
-        title = self.text(self.PRODUCT_1_TITLE)
+        title = self.text(self.FIRST_PRODUCT_TITLE)
 
         # Читаем цену товара аналогичным образом
-        price = self.text(self.PRODUCT_1_PRICE)
+        price = self.text(self.FIRST_PRODUCT_PRICE)
 
         # Возвращаем данные как единое логическое целое
         return title, price
@@ -93,7 +93,7 @@ class InventoryPage(BasePage):
         # self.click — метод BasePage:
         # 1. ждёт, пока кнопка станет кликабельной
         # 2. кликает по ней
-        self.click(self.ADD_PRODUCT_1)
+        self.click(self.ADD_PRODUCT_TO_CART_BUTTON)
 
         # Возвращаем текущую страницу,
         # потому что пользователь всё ещё находится в каталоге
@@ -110,7 +110,7 @@ class InventoryPage(BasePage):
         """
 
         # Кликаем по иконке корзины
-        self.click(self.CART_LINK)
+        self.click(self.CART_ICON)
         print(self.driver.current_url)
         # Создаём и возвращаем Page Object корзины
         # Передаём driver, потому что браузер тот же самый

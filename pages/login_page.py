@@ -1,6 +1,7 @@
 # By — это перечисление стратегий поиска элементов (XPATH, ID, CSS_SELECTOR и т.д.)
 from selenium.webdriver.common.by import By
-
+# LoginLocators - это локаторы на странице логин
+from locators.login_locators import LoginLocators
 # BASE_URL — базовый адрес приложения (хранится в config, чтобы не дублировать в тестах)
 from config.settings import BASE_URL
 # BasePage — базовый класс Page Object:
@@ -17,12 +18,6 @@ from pages.inventory_page import InventoryPage
 # - имеет self.wait
 # - может использовать self.type(), self.click() и т.д.
 class LoginPage(BasePage):
-    # ===== ЛОКАТОРЫ СТРАНИЦЫ =====
-    # Каждый локатор — это кортеж (By, value)
-    # Он НЕ ищет элемент, а только ОПИСЫВАЕТ, как его найти
-    USERNAME_INPUT = (By.XPATH, "//input[@name='user-name']")
-    PASSWORD_INPUT = (By.XPATH, "//input[@id='password']")
-    LOGIN_BUTTON = (By.XPATH, "//input[@id='login-button']")
 
     # ===== МЕТОД ОТКРЫТИЯ СТРАНИЦЫ =====
     def open(self) -> "LoginPage":
