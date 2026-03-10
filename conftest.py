@@ -2,7 +2,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-from config import HEADLESS, KEEP_BROWSER
+from config.env import HEADLESS, KEEP_BROWSER
 
 @pytest.fixture(scope = "function")
 def driver():
