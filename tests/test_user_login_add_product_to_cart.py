@@ -1,11 +1,16 @@
 # Импорт Page Object страницы логина.
 # Тесты работают ТОЛЬКО с Page Object'ами,
 # они не знают о Selenium, локаторах и ожиданиях.
+import pytest
 from pages.login_page import LoginPage
-from config.test_data import STANDARD_USER, PASSWORD
+from config.test_data import STANDARD_USER, LOCKED_USER, PROBLEM_USER, PASSWORD
 
-
-def test_standard_user_add_product_to_cart(driver):
+@pytest.mark.parametrize("username", [
+    STANDARD_USER,
+    LOCKED_USER,
+    PROBLEM_USER
+])
+def test_user_add_product_to_cart(driver, username):
     """
     Тестовый сценарий:
     1. Открыть страницу логина
@@ -36,7 +41,7 @@ def test_standard_user_add_product_to_cart(driver):
     # Семантически важно:
     # - после логина пользователь оказывается на странице каталога
     # - поэтому метод возвращает InventoryPage
-    inventory = login.login(STANDARD_USER, PASSWORD)
+    inventory = login.login(username, PASSWORD)
 
     # ===== ШАГ 3. ЧТЕНИЕ ДАННЫХ ТОВАРА =====
 
