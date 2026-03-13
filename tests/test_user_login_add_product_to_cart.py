@@ -5,12 +5,14 @@ import pytest
 from pages.login_page import LoginPage
 from config.test_data import STANDARD_USER, LOCKED_USER, PROBLEM_USER, PASSWORD
 
-@pytest.mark.parametrize("username", [
-    STANDARD_USER,
-    LOCKED_USER,
-    PROBLEM_USER
-])
-def test_user_add_product_to_cart(driver, username):
+@pytest.mark.parametrize(
+    "username, expected_success",
+    [
+        (STANDARD_USER, True),
+        (LOCKED_USER, False),
+    ]
+)
+def test_user_add_product_to_cart(driver, username, expected_success):
     """
     Тестовый сценарий:
     1. Открыть страницу логина
@@ -33,6 +35,17 @@ def test_user_add_product_to_cart(driver, username):
     # и возвращает self (LoginPage),
     # чтобы можно было продолжать цепочку вызовов.
     login = LoginPage(driver).open()
+    result = login.login(username, PASSWORD)
+
+    # =============== если логин не должен пройти ================
+
+    if not expected_success:
+        error_text = login.get_error_message()
+        assert "locked out" in error_text.lower()
+        return
+    # =============== если логин успешен ================
+
+    inventory = result
 
     # ===== ШАГ 2. АВТОРИЗАЦИЯ =====
 
@@ -41,7 +54,7 @@ def test_user_add_product_to_cart(driver, username):
     # Семантически важно:
     # - после логина пользователь оказывается на странице каталога
     # - поэтому метод возвращает InventoryPage
-    inventory = login.login(username, PASSWORD)
+
 
     # ===== ШАГ 3. ЧТЕНИЕ ДАННЫХ ТОВАРА =====
 

@@ -68,3 +68,6 @@ class LoginPage(BasePage):
         # Возвращаем новый Page Object следующей страницы
         # Мы передаём driver, потому что браузер тот же самый
         return InventoryPage(self.driver)
+
+    def get_error_message(self):
+        return self.text(LoginLocators.ERROR_MESSAGE)

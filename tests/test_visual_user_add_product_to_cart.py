@@ -3,7 +3,7 @@
 # они не знают о Selenium, локаторах и ожиданиях.
 from pages.login_page import LoginPage
 from config.test_data import VISUAL_USER, PASSWORD
-
+import pytest
 
 def test_visual_user_add_product_to_cart(driver):
     """
@@ -61,7 +61,18 @@ def test_visual_user_add_product_to_cart(driver):
     # ===== ШАГ 8. ПРОВЕРКИ (ASSERTIONS) =====
     # Проверяем, что данные товара в корзине
     # совпадают с данными товара из каталога.
-    assert cart_title == title, \
-        f"Title mismatch. Catalog='{title}', Cart='{cart_title}'"
-    assert cart_price == price, \
-        f"Price mismatch. Catalog='{price}', Cart='{cart_price}'"
+    if cart_title != title:
+        pytest.fail(
+        f"Title mismatch.\n" 
+        f"Catalog title = {title}\n" 
+        f"Cart title ={cart_title}\n"
+        f"URL = {driver.current_url}"
+    )
+    if cart_price != price:
+        pytest.fail(
+            f"Price mismatch.\n"
+            f"Catalog price = {price}\n"
+            f"Cart price = {cart_price}\n"
+            f"URL = {driver.current_url}"
+        )
+

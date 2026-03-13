@@ -7,3 +7,4 @@ class LoginLocators:
     USERNAME_INPUT = (By.XPATH, "//input[@name='user-name']")
     PASSWORD_INPUT = (By.XPATH, "//input[@id='password']")
     LOGIN_BUTTON = (By.XPATH, "//input[@id='login-button']")
+    ERROR_MESSAGE = (By.XPATH, "//h3[contains(text(), 'locked out')]")
