@@ -2,6 +2,7 @@
 # Тесты работают ТОЛЬКО с Page Object'ами,
 # они не знают о Selenium, локаторах и ожиданиях.
 from pages.login_page import LoginPage
+from config.test_data import VISUAL_USER, PASSWORD
 
 
 def test_visual_user_add_product_to_cart(driver):
@@ -30,7 +31,7 @@ def test_visual_user_add_product_to_cart(driver):
     # ===== ШАГ 2. АВТОРИЗАЦИЯ =====
     # Выполняем логин пользователем visual_user.
     # После успешного логина возвращается InventoryPage
-    inventory = login.login("visual_user", "secret_sauce")
+    inventory = login.login(VISUAL_USER, PASSWORD)
 
     # ===== ШАГ 3. ОБРАБОТКА НЕОБЯЗАТЕЛЬНОГО ПОПАПА =====
     # Попап смены пароля может появляться нестабильно.
