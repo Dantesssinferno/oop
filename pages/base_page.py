@@ -1,5 +1,3 @@
-from xml.sax.xmlreader import Locator
-
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
@@ -15,6 +13,10 @@ class BasePage:
 
     def open(self, url: str) -> None:
         self.driver.get(url)
+
+    def scroll_to(self, locator):
+        element = self.find_present(locator)
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
 
     def find_visible(self, locator) -> WebElement:
         return self.wait.until(EC.visibility_of_element_located(locator))
@@ -60,4 +62,3 @@ class BasePage:
             return True
         except TimeoutException:
             return False
-        
