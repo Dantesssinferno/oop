@@ -49,6 +49,8 @@ class LoginPage(BasePage):
                 - объект InventoryPage, потому что после логина
                   пользователь попадает на страницу каталога
                 """
+        # Получаем текущую страницу
+        self.get_current_url()
         # Вводим логин:
         # self.type — метод BasePage:
         # 1. ждёт, пока элемент станет видимым
@@ -71,3 +73,4 @@ class LoginPage(BasePage):
 
     def get_error_message(self):
         return self.text(LoginLocators.ERROR_MESSAGE)
+

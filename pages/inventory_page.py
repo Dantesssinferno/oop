@@ -91,7 +91,6 @@ class InventoryPage(BasePage):
 
         # Кликаем по иконке корзины
         self.click(InventoryLocators.CART_ICON)
-        print(self.driver.current_url)
         # Создаём и возвращаем Page Object корзины
         # Передаём driver, потому что браузер тот же самый
         return CartPage(self.driver)

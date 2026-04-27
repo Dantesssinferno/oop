@@ -73,3 +73,8 @@ class BasePage:
             return True
         except TimeoutException:
             return False
+
+    """Method get current url"""
+    def get_current_url(self) -> WebElement:
+        get_url = self.driver.current_url
+        print("Current url: " + get_url)
